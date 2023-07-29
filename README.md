@@ -12,6 +12,7 @@ You also need to install urwid. You can do it with pip:
 
 ## Running the Program
 After you have installed the necessary dependencies, you can run the program with Python:
+
 ```python main.py```
 
 This will launch an interactive text-based interface where you can enter a password. The program will calculate and display the strength of your password, scoring it based on the following criteria:
@@ -31,5 +32,5 @@ The program utilizes two main files. The first one contains functions that evalu
 
 The second file contains the main function that establishes the interactive interface. It connects the urwid Edit and Text widgets, setting up a password field and an area to display the password strength score. As the password changes, it emits the 'change' signal, which is connected to the show_score function that calculates and updates the score.
 
-##Project Goals
+## Project Goals
 The code is written for educational purposes on online-course for web-developers [dvmn.org](https://dvmn.org/).
