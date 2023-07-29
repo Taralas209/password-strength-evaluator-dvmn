@@ -1,7 +1,7 @@
 import urwid
 
 def is_very_long(password):
-    return symbols_count(password) > 12
+    return len(password) > 12
 
 def has_digits(password):
     return any(symbol.isdigit() for symbol in password)
@@ -18,27 +18,28 @@ def has_lower_letters(password):
 def has_symbols(password):
     return any((not symbol.isdigit() and not symbol.isalpha()) for symbol in password)
 
-def on_ask_change(edit, password):
-    score = 0
-    checks = [
-        is_very_long(password),
-        has_digits(password),
-        has_letters(password),
-        has_upper_letters(password),
-        has_lower_letters(password),
-        has_symbols(password)
+def show_score(score_field, password_field, password):
+    checking_funcs = [
+        is_very_long,
+        has_digits,
+        has_letters,
+        has_upper_letters,
+        has_lower_letters,
+        has_symbols,
     ]
+    score = 0
+    for is_checked in checking_funcs:
+        score += 2 if is_checked(password) else 0
 
-    for check in checks:
-        if check:
-            score += 2
-    reply.set_text('Password Rating: {}'.format(score))
+    score_field.set_text(f'Password Rating: {score}')
 
-if __name__ == '__main__':
-    symbols_count = len
-    ask = urwid.Edit('Enter password: ',  mask='*')
-    reply = urwid.Text("")
-    menu = urwid.Pile([ask, reply])
+def main():
+    password_field = urwid.Edit('Enter password: ', mask='*')
+    score_field = urwid.Text('Password Rating: ')
+    menu = urwid.Pile([password_field, score_field])
     menu = urwid.Filler(menu, valign='top')
-    urwid.connect_signal(ask, 'change', on_ask_change)
+    urwid.connect_signal(password_field, 'change', show_score, user_args=[score_field])
     urwid.MainLoop(menu).run()
+
+if __name__ == "__main__":
+    main()
