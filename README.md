@@ -8,8 +8,7 @@ Make sure you have Python (3.6 or higher is recommended) and pip (Python package
 
 You also need to install urwid. You can do it with pip:
 
-```shell
-pip install urwid
+```pip install urwid```
 
 ## Running the Program
 After you have installed the necessary dependencies, you can run the program with Python:
